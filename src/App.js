@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react'
+import Heading from './components/Heading';
+import List from './components/List';
+import { useState } from 'react';
+import Footer from './components/Footer';
 
-function App() {
+export default function App() {
+  const [item, setItem] = useState([]);
+  const handleClick=(value)=>{
+    setItem([...item,value]);
+  }
+  const handleDelete=(index)=>{
+    setItem(item.filter((ele,id)=>{
+      return id!==index;
+    }))
+    // console.log(item);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div className='App'>
+     <Heading title="WelCome to ToDo List"
+      handleClick={handleClick}
+     />
+     <List itemList={item} handleDelete={handleDelete}/>
+     <Footer/> 
+    </div>  
+  )
 }
 
-export default App;
+
